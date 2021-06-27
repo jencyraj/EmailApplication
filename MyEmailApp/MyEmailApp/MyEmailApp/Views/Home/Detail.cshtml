@@ -1,0 +1,36 @@
+﻿@using Lime.Domain;
+@model IEnumerable<MailMessage>
+@{
+    ViewBag.Title = "Detail";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details of selected  Email</h2>
+
+<table class="table table-bordered table-hover">
+    <tr>
+
+        <th>Id</th>
+        <th>Name</th>
+        <th>Modified Date</th>
+        <th>Status</th>
+    </tr>
+
+    @foreach (MailMessage message in Model)
+    {
+
+        <tr>
+
+            <td>@message.Id</td>
+            <td>@message.Name</td>
+            <td>@message.ModifiedDate.ToString("dddd, dd MMMM yyyy")</td>
+            <td>@message.IsSent</td>
+
+
+        </tr>
+    }
+
+</table>
+
+<div>@Html.ActionLink("Back to List", "Index", "Home")</div>
+

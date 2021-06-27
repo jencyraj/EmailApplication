@@ -1,0 +1,60 @@
+﻿@using Lime.Domain;
+@model IEnumerable<MailMessage>
+ 
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script type="text/javascript">
+
+    $(document).ready(function () {
+
+        $("a").click(function () { // noting work => btn btn-small btn-danger
+            if (confirm("Are you sure?")) {
+                // your deletion code
+            }
+            return false;
+        });
+    });
+
+</script>
+<!DOCTYPE html>
+ 
+<html>
+<head>
+    
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<div>
+
+</div>
+<body>
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <span>Name:</span>
+        <input type="text" name="name"/>
+        <input type="submit" value="Search"/>
+    }
+    <hr/>
+    <table cellpadding="0" cellspacing="0" class="table table-bordered table-hover">
+        <tr>
+            <th>Name</th>
+            <th>Modified Date</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+        @foreach (MailMessage message in Model)
+        {
+            <tr>
+                <td>@message.Name</td>
+                <td>@message.ModifiedDate.ToString("dddd, dd MMMM yyyy")</td>
+                <td>@message.IsSent</td>
+                <td>
+                    @Html.ActionLink("Detail", "Detail", new { id = message.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = message.Id }, new { onclick = "return confirm('Are you sure you wish to delete this Email?');" })
+                </td>
+            </tr>
+        }
+    </table>
+</body>
+</html>
